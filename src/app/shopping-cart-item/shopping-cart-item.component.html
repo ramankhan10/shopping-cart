@@ -1,13 +1,16 @@
 <div class="shopping-Item">
     <div class="content">
-        <img class="product-img" src="assets\Image\pixel.jpg" alt="" />
-        <div class="product-name">Product Name</div>
+        <img class="product-img" [src]="item?.image" />
+        <div class="product-name">{{item?.name}}</div>
+        <div class="product-price">${{item?.price}}</div>
     </div>
 
+
+
   <div class="action-list">
-    <button class="btn-delete">Delete</button>
-    <button class="btn-plus">+</button>
-    <input class="textFild" type="text" />
-    <button class="btn-minuse">-</button>
+    <button class="btn-plus" (click)="add()">+</button>
+    <input [value]="item?.count" class="textFild" type="number" />
+    <button class="btn-minuse" (click)="sub()">-</button>
+    <button class="btn-delete" (click)="del(item?.id)">Delete</button>
   </div>
 </div>

@@ -1,21 +1,12 @@
 <h1 class="title">Shopping Cart</h1>
 
 <div class="shopping-cart">
-  <shopping-item></shopping-item>
-  <shopping-item></shopping-item>
-  <shopping-item></shopping-item>
+  <shopping-item
+    *ngFor="let item of items"
+    [item]="item"
+    (onDelete)="onDeleteEvent($event)"
+    (onCountUpdated)="onCountUdatedEvent($event)"
+    (onRefresh)="refresh()"
+  ></shopping-item>
+  <h3>Total Price: {{ totalPrice }}</h3>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
