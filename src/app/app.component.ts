@@ -11,6 +11,18 @@ export class AppComponent implements OnInit {
 
   title = 'shopping-cart';
 
+  totalPrice: number = 0;
+
+  onDeleteEvent($cartItemId: number) {
+    const index = this.items.findIndex((item) => item.id === $cartItemId);
+    this.items.splice(index, 1);
+  }
+
+  onCountUdatedEvent($event: ShoppingCartItemModel) {
+    const index = this.items.findIndex((item) => item.id === $event.id);
+    this.items[index] = $event;
+  }
+
   items: ShoppingCartItemModel[] = [
     {
       id: 1,
@@ -39,16 +51,14 @@ export class AppComponent implements OnInit {
     let sumPrice: number = 0;
     this.items.forEach((item) => {
       const price: number = item.price ?? 0;
-      sumPrice += (price * (item.count ?? 0));
+      sumPrice += price * (item.count ?? 0);
     });
     this.totalPrice = sumPrice;
+
+    localStorage.setItem('cart', JSON.stringify(this.items));
   }
 
-  ngOnInit(): void {
-    this.initCart();
-  }
-
-  private initCart() {
+  initCart() {
     this.items = [
       {
         id: 1,
@@ -75,15 +85,15 @@ export class AppComponent implements OnInit {
     this.refresh();
   }
 
-  totalPrice: number = 0;
-
-  onDeleteEvent($cartItemId: number) {
-    const index = this.items.findIndex((item) => item.id === $cartItemId);
-    this.items.splice(index, 1);
+  ngOnInit(): void {
+    this.initFromLocalStorage();
   }
 
-  onCountUdatedEvent($event: ShoppingCartItemModel) {
-    const index = this.items.findIndex((item) => item.id === $event.id);
-    this.items[index] = $event;
+  private initFromLocalStorage() {
+    let data = localStorage.getItem('cart');
+    if (data) {
+      this.items = JSON.parse(data);
+      this.refresh();
+    }
   }
 }

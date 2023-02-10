@@ -30,4 +30,15 @@ p {
     margin-top: 20px;
 }
 
-.shopping-cart {}
+.initCart {
+  padding: 7px 9px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-left: 5px;
+  cursor: pointer;
+
+  &:hover {
+    color: #fff;
+    background-color: #ccc;
+  }
+}
